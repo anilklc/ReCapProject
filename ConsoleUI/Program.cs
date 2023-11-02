@@ -14,11 +14,11 @@ namespace ConsoleUI
             CarJoinTest();
 
         }
-        //color ve brand manager ayarl sonra yeni işlemlere geç
+     
         private static void CarTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetAll())
+            foreach (var car in carManager.GetAll().Data)
             {
                 Console.WriteLine(car.Name);
             }
@@ -27,7 +27,7 @@ namespace ConsoleUI
         private static void BrandTest()
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
-            foreach (var brand in brandManager.GetAll())
+            foreach (var brand in brandManager.GetAll().Data)
             {
                 Console.WriteLine(brand.BrandName);
             }
@@ -36,7 +36,7 @@ namespace ConsoleUI
         private static void ColorTest()
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
             {
                 Console.WriteLine(color.ColorName);
             }
@@ -45,7 +45,8 @@ namespace ConsoleUI
         private static void CarJoinTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            foreach (var car in carManager.GetDto())
+            Console.WriteLine(carManager.GetDto().Message);
+            foreach (var car in carManager.GetDto().Data)
             {
                 Console.WriteLine(car.BrandName+" - " + car.Name + " - "+car.ColorName + " - "+ car.DailyPrice);
             }
