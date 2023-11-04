@@ -12,7 +12,7 @@ namespace ConsoleUI
             BrandTest();
             ColorTest();
             CarJoinTest();
-
+            //bolum 10 ödev 4ten devam
         }
      
         private static void CarTest()
