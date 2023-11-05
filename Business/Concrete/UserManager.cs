@@ -2,6 +2,7 @@
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -24,10 +25,18 @@ namespace Business.Concrete
             return new SuccessResult(Messages.UserAdded);
         }
 
-        public IResult Delete(User user)
+        public IResult Delete(int id)
         {
-            _userDal.Delete(user);
-            return new SuccessResult(Messages.UserDeleted);
+            var user = _userDal.Get(c => c.Id == id);
+            if (user != null)
+            {
+                _userDal.Delete(user);
+                return new SuccessResult(Messages.UserDeleted);
+            }
+            else
+            {
+                return new ErrorResult(Messages.UserNotDelete);
+            }
 
         }
 

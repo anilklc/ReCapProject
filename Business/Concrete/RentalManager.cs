@@ -26,10 +26,18 @@ namespace Business.Concrete
             return new SuccessResult(Messages.RentalAdded);
         }
 
-        public IResult Delete(Rental rental)
+        public IResult Delete(int id)
         {
-            _rentalDal.Delete(rental);
-            return new SuccessResult(Messages.RentalDeleted);
+            var rental = _rentalDal.Get(r => r.Id == id);
+            if (rental != null)
+            {
+                _rentalDal.Delete(rental);
+                return new SuccessResult(Messages.RentalDeleted);
+            }
+            else
+            {
+                return new ErrorResult(Messages.RentalNotDelete);
+            }
         }
 
         public IDataResult<List<Rental>> GetAll()

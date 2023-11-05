@@ -42,5 +42,7 @@ namespace Business.Constants
         public static string ColorListedById = "Renk Listelendi";
         public static string BrandListedById = "Marka Listelendi";
         public static string BrandNotDelete = "Marka Silindi";
+        public static string RentalNotDelete = "Kiralama Silinemedi";
+        public static string UserNotDelete = "Kullanıcı Silinemedi";
     }
 }

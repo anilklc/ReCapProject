@@ -28,7 +28,7 @@ namespace Business.Concrete
 
         public IResult Delete(int id)
         {
-            var brand = _brandDal.Get(c => c.Id == id);
+            var brand = _brandDal.Get(b => b.Id == id);
             if (brand != null)
             {
                 _brandDal.Delete(brand);

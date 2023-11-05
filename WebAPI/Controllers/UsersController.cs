@@ -7,18 +7,18 @@ namespace WebAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class BrandController : ControllerBase
+    public class UsersController : ControllerBase
     {
-        private readonly IBrandService _brandService;
-        public BrandController(IBrandService brandService) 
-        { 
-            _brandService = brandService;
+        private readonly IUserService _userService;
+        public UsersController(IUserService userService)
+        {
+            _userService = userService;
         }
 
-        [HttpGet("GetAllBrand")]
-        public IActionResult GetAllBrand()
+        [HttpGet("GetAllUser")]
+        public IActionResult GetAllUser()
         {
-            var result = _brandService.GetAll();
+            var result = _userService.GetAll();
 
             if (result.Success)
             {
@@ -30,10 +30,10 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpGet("GetByIdBrand")]
-        public IActionResult GetByIdBrand(int id)
+        [HttpGet("GetByIdUser")]
+        public IActionResult GetByIdUser(int id)
         {
-            var result = _brandService.GetById(id);
+            var result = _userService.GetById(id);
 
             if (result.Success)
             {
@@ -45,16 +45,16 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpPost("AddBrand")]
-        public IActionResult AddBrand(Brand brand)
+        [HttpPost("AddUser")]
+        public IActionResult AddUser(User user)
         {
-            return Ok(_brandService.Add(brand));
+            return Ok(_userService.Add(user));
         }
 
-        [HttpPut("UpdateBrand")]
-        public IActionResult UpdateBrand(Brand brand)
+        [HttpPut("UpdateUser")]
+        public IActionResult UpdateUser(User user)
         {
-            var result = _brandService.Update(brand);
+            var result = _userService.Update(user);
             if (result.Success)
             {
                 return Ok(result);
@@ -65,10 +65,10 @@ namespace WebAPI.Controllers
             }
         }
 
-        [HttpDelete("DeleteBrand")]
-        public IActionResult DeleteBrand(int id)
+        [HttpDelete("DeleteUser")]
+        public IActionResult DeleteUser(int id)
         {
-            var result = _brandService.Delete(id);
+            var result = _userService.Delete(id);
             if (result.Success)
             {
                 return Ok(result);
@@ -78,7 +78,5 @@ namespace WebAPI.Controllers
                 return BadRequest(result.Message);
             }
         }
-
-
     }
 }
