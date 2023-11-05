@@ -2,6 +2,7 @@
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -26,10 +27,18 @@ namespace Business.Concrete
             return new SuccessResult(Messages.ColorAdded);
         }
 
-        public IResult Delete(Color color)
-        {
-            _colorDal.Delete(color);
-            return new SuccessResult(Messages.ColorDelete);
+        public IResult Delete(int id)
+        {  
+            var color = _colorDal.Get(c => c.Id == id);
+            if (color != null)
+            {
+                _colorDal.Delete(color);
+                return new SuccessResult(Messages.ColorDelete);
+            }
+            else
+            {
+                return new ErrorResult(Messages.ColorNotDelete);
+            }
         }
 
         public IDataResult<List<Color>> GetAll()
@@ -39,7 +48,7 @@ namespace Business.Concrete
 
         public IDataResult<Color> GetById(int id)
         {
-            return new SuccessDataResult<Color>(_colorDal.Get(c=>c.Id==id));
+            return new DataResult<Color>(_colorDal.Get(c=>c.Id==id),true,Messages.ColorListedById);
         }
 
         public IResult Update(Color color)

@@ -2,6 +2,7 @@
 using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -25,10 +26,18 @@ namespace Business.Concrete
             return new SuccessResult(Messages.BrandAdded);
         }
 
-        public IResult Delete(Brand brand)
+        public IResult Delete(int id)
         {
-            _brandDal.Delete(brand);
-            return new SuccessResult(Messages.BrandDelete);
+            var brand = _brandDal.Get(c => c.Id == id);
+            if (brand != null)
+            {
+                _brandDal.Delete(brand);
+                return new SuccessResult(Messages.BrandDelete);
+            }
+            else
+            {
+                return new ErrorResult(Messages.BrandNotDelete);
+            }
         }
 
         public IDataResult<List<Brand>> GetAll()
@@ -38,7 +47,7 @@ namespace Business.Concrete
 
         public IDataResult<Brand> GetById(int id)
         {
-            return new SuccessDataResult<Brand>(_brandDal.Get(b=>b.Id==id));
+            return new DataResult<Brand>(_brandDal.Get(b=>b.Id==id),true,Messages.BrandListedById);
         }
 
         public IResult Update(Brand brand)

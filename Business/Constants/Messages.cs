@@ -15,7 +15,7 @@ namespace Business.Constants
         public static string CarDelete = "Araba Silindi";
         public static string BrandUpdate = "Marka Güncellendi";
         public static string BrandGetAll = "Markalar Listelendi";
-        public static string BrandDelete = "Marka Silindi" ;
+        public static string BrandDelete = "Marka Silindi";
         public static string BrandAdded = "Marka Eklendi";
         public static string ColorGetAll = "Renkler Getirildi";
         public static string ColorAdded = "Renk Eklendi";
@@ -36,5 +36,11 @@ namespace Business.Constants
         public static string RentalUpdated = "Kiralama Güncellendi";
         public static string RentalGetall = "Kiralamalar Listelendi";
         public static string RentalGetId = "Kiralama Getirildi";
+        public static string CarNotDelete = "Araba Silinemedi";
+        public static string CarListedById = "Araba Listelendi";
+        public static string ColorNotDelete = "Renk Silinemedi";
+        public static string ColorListedById = "Renk Listelendi";
+        public static string BrandListedById = "Marka Listelendi";
+        public static string BrandNotDelete = "Marka Silindi";
     }
 }

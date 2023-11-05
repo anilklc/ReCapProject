@@ -36,12 +36,6 @@ namespace Business.Concrete
             }
         }
 
-        public IResult Delete(Car car)
-        {
-            _carDal.Delete(car);
-            return new SuccessResult(Messages.CarDelete);
-        }
-
         public IDataResult<List<Car>> GetAll()
         {
             return new DataResult<List<Car>>(_carDal.GetAll(),true,Messages.CarListed);
@@ -49,7 +43,7 @@ namespace Business.Concrete
 
         public IDataResult<Car> GetById(int id)
         {
-            return new SuccessDataResult<Car>(_carDal.Get(c=>c.Id==id));
+            return new DataResult<Car>(_carDal.Get(c=>c.Id==id),true,Messages.CarListedById);
         }
 
         public IDataResult<List<CarDetailDto>> GetDto()
@@ -61,6 +55,21 @@ namespace Business.Concrete
         {
              _carDal.Update(car);
              return new SuccessResult(Messages.CarUpdated);
+        }
+
+        public IResult Delete(int id)
+        {
+            var car = _carDal.Get(c => c.Id == id);
+            if (car != null)
+            {
+                _carDal.Delete(car);
+                return new SuccessResult(Messages.CarDelete);
+            }
+            else
+            {
+                return new ErrorResult(Messages.CarNotDelete);
+            }
+
         }
     }
 }
