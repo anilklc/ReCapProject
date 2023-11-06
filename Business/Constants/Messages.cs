@@ -44,5 +44,6 @@ namespace Business.Constants
         public static string BrandNotDelete = "Marka Silindi";
         public static string RentalNotDelete = "Kiralama Silinemedi";
         public static string UserNotDelete = "Kullanıcı Silinemedi";
+        public static string DailyPriceError = "10 Tl Altında Olamaz";
     }
 }
