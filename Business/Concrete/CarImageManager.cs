@@ -4,6 +4,7 @@ using Core.Utilities.Business;
 using Core.Utilities.Helpers.FileHelper;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using System;
@@ -23,13 +24,14 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
             _fileHelper = fileHelper;
         }
-        public IResult Add(IFormFile file, CarImage carImage)
+        public IResult Add(IFormFile file, int carId)
         {
-            IResult result = BusinessRules.Run(CheckCarImageLimit(carImage.CarId));
+            IResult result = BusinessRules.Run(CheckCarImageLimit(carId));
             if(result != null) 
             { 
                 return result;
             }
+            CarImage carImage = new CarImage();
             carImage.ImagePath = _fileHelper.Upload(file, PathConstants.ImagesPath);
             carImage.Date=DateTime.Now;
             _carImageDal.Add(carImage);
@@ -37,11 +39,20 @@ namespace Business.Concrete
 
         }
 
-        public IResult Delete(CarImage carImage)
+        public IResult Delete(int id)
         {
-            _fileHelper.Delete(PathConstants.ImagesPath+carImage.ImagePath);
-            _carImageDal.Delete(carImage);
-            return new SuccessResult(Messages.CarImageDelete);
+
+            var result = _carImageDal.Get(c => c.Id == id);
+            if (result != null)
+            {
+                _carImageDal.Delete(result);
+                return new SuccessResult(Messages.CarImageDelete);
+            }
+            else
+            {
+                return new ErrorResult(Messages.CarImageNotDelete);
+            }
+            
         }
 
         public IDataResult<List<CarImage>> GetAll()
@@ -55,9 +66,8 @@ namespace Business.Concrete
             if(result != null)
             {
                 return new ErrorDataResult<List<CarImage>>(GetDefaultImage(id).Data, false, Messages.CarImageNotFound);
-                
             }
-            return new DataResult<List<CarImage>>(_carImageDal.GetAll(c => c.Id == id), true, Messages.CarImageListed);
+            return new DataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == id), true, Messages.CarImageListed);
         }
 
         public IDataResult<CarImage> GetCarsImageById(int id)
@@ -92,8 +102,8 @@ namespace Business.Concrete
 
         private IResult CheckCarImage(int carId)
         {
-            var result = _carImageDal.GetAll(c => c.CarId == carId);
-            if (result != null) 
+            var result = _carImageDal.GetAll(c => c.CarId == carId).Count;
+            if (result >0) 
             {
                 return new SuccessResult();
             }

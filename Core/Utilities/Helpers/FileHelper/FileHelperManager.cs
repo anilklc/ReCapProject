@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Core.Utilities.Helpers.GuidHelper;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +41,7 @@ namespace Core.Utilities.Helpers.FileHelper
                 }
                 //File extensions .JPG .PNG ...
                 string extension = Path.GetExtension(file.FileName);
-                string guid = GuidHelper.GuidHelper.CreateGuid();
+                string guid = GuidHelperManager.CreateGuid();
                 string filePath = guid + extension;
                 using (FileStream fileStream = File.Create(root + filePath))
                 {

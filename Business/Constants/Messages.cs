@@ -54,5 +54,7 @@ namespace Business.Constants
 
         public static string CarImageListed = "Araba Resmi Getirildi";
         public static string CarImageAllListed = "Araba Resmleri Getirildi";
+
+        public static string CarImageNotDelete = "Resim Silinemedi";
     }
 }
