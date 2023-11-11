@@ -26,7 +26,7 @@ namespace Business.Concrete
         }
         public IResult Add(IFormFile file, int carId)
         {
-            IResult result = BusinessRules.Run(CheckCarImageLimit(carId));
+            var result = BusinessRules.Run(CheckCarImageLimit(carId));
             if(result != null) 
             { 
                 return result;
@@ -41,18 +41,17 @@ namespace Business.Concrete
 
         public IResult Delete(int id)
         {
-
             var result = _carImageDal.Get(c => c.Id == id);
             if (result != null)
             {
+                _fileHelper.Delete(PathConstants.ImagesPath+result.ImagePath);
                 _carImageDal.Delete(result);
                 return new SuccessResult(Messages.CarImageDelete);
             }
             else
             {
                 return new ErrorResult(Messages.CarImageNotDelete);
-            }
-            
+            }            
         }
 
         public IDataResult<List<CarImage>> GetAll()
@@ -75,19 +74,23 @@ namespace Business.Concrete
             return new DataResult<CarImage>(_carImageDal.Get(c => c.Id == id), true, Messages.CarImageListed);
         }
 
-        public IResult Update(IFormFile file, CarImage carImage)
+        public IResult Update(IFormFile file, int id)
         {
-            carImage.ImagePath = _fileHelper.Update(file, PathConstants.ImagesPath + carImage.ImagePath, PathConstants.ImagesPath);
-            _carImageDal.Update(carImage);
-            return new SuccessResult(Messages.CarImageUpdate);
+            var result = _carImageDal.Get(c => c.Id == id);
+            if (result!=null)
+            {  
+                result.ImagePath= _fileHelper.Update(file, PathConstants.ImagesPath + result.ImagePath, PathConstants.ImagesPath);
+                _carImageDal.Update(result);
+                return new SuccessResult(Messages.CarImageUpdate);
+            }               
+            return new ErrorResult(Messages.CarImageNotUpdate);
         }
 
         private IDataResult<List<CarImage>> GetDefaultImage(int carId)
         {
-
             List<CarImage> carImage = new List<CarImage>();
-            carImage.Add(new CarImage { CarId = carId, Date = DateTime.Now, ImagePath = "wwwroot\\DefaultImage.png" });
-            return new SuccessDataResult<List<CarImage>>(carImage);
+            carImage.Add(new CarImage { CarId = carId, Date = DateTime.Now, ImagePath = "DefaultImage.jpg" });
+            return new SuccessDataResult<List<CarImage>>(carImage);    
         }
 
         private IResult CheckCarImageLimit(int carId)

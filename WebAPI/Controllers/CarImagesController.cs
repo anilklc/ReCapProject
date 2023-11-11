@@ -68,9 +68,9 @@ namespace WebAPI.Controllers
         }
 
         [HttpPut("UpdateImage")]
-        public IActionResult UpdateColor(IFormFile file, CarImage carImage)
+        public IActionResult UpdateColor(IFormFile file, int id)
         {
-            var result = _carImageService.Update(file,carImage);
+            var result = _carImageService.Update(file,id);
             if (result.Success)
             {
                 return Ok(result);

@@ -45,16 +45,16 @@ namespace Business.Constants
         public static string RentalNotDelete = "Kiralama Silinemedi";
         public static string UserNotDelete = "Kullanıcı Silinemedi";
         public static string DailyPriceError = "10 Tl Altında Olamaz";
-
         public static string CarImageLimit = "Maksimum 5 Adet Resim Eklenebilir";
         public static string CarImageAdded = "Resim Eklendi";
         public static string CarImageDelete = "Resim Silindi";
         public static string CarImageUpdate = "Resim Güncellendi";
         public static string CarImageNotFound = "Resim Bulunamadı";
-
         public static string CarImageListed = "Araba Resmi Getirildi";
         public static string CarImageAllListed = "Araba Resmleri Getirildi";
-
         public static string CarImageNotDelete = "Resim Silinemedi";
+        public static string CarImageNotUpdate = "Resim Güncellenemedi";
+
+        public static string CarImageSee { get; internal set; }
     }
 }
