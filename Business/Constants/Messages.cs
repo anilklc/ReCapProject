@@ -55,6 +55,5 @@ namespace Business.Constants
         public static string CarImageNotDelete = "Resim Silinemedi";
         public static string CarImageNotUpdate = "Resim Güncellenemedi";
 
-        public static string CarImageSee { get; internal set; }
     }
 }
