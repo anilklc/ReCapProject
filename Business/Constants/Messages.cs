@@ -54,6 +54,12 @@ namespace Business.Constants
         public static string CarImageAllListed = "Araba Resmleri Getirildi";
         public static string CarImageNotDelete = "Resim Silinemedi";
         public static string CarImageNotUpdate = "Resim Güncellenemedi";
-
+        public static string AuthorizationDenied = "Yetkiniz yok";
+        public static string UserRegistered = "Kullanıcı kayıt oldu";
+        public static string UserNotFound = "Kullanıcı bulunamadı";
+        public static string PasswordError = "Şifre hatalı";
+        public static string SuccessfulLogin = "Giriş başarılı";
+        public static string UserAlreadyExists = "Kullanıcı daha önce kayıt edilmiş";
+        public static string AccessTokenCreated = "Token oluşturuldu";
     }
 }
